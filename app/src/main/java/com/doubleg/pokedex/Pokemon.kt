@@ -1,3 +1,3 @@
 package com.doubleg.pokedex
 
-data class Pokemon(val name: String, val id: Int)
+data class Pokemon(var name: String, var id: Int)
