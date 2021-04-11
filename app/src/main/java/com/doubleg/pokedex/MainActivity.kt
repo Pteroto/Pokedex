@@ -37,18 +37,19 @@ class MainActivity : AppCompatActivity() {
             service.getPokemon(chaveBusca.text.toString()).enqueue(object : Callback<Pokemon> {
                 override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
                     if (response.isSuccessful) {
-
                         nomePokemon.text = (response.body()?.name)
-
-
                         idPokemon.text = (response.body()?.id).toString()
 
-
+                    } else {
+                        nomePokemon.text = "Pokemon Não Encontrado"
+                        idPokemon.text = "Pokemon Não Encontrado"
                     }
                 }
 
                 override fun onFailure(call: Call<Pokemon>, t: Throwable) {
-                    Log.d("TESTE", t.message ?: "")
+                    nomePokemon.text = "Erro na Busca" + t.localizedMessage
+                    idPokemon.text = "Erro na Busca" + t.localizedMessage
+
                 }
             })
 
