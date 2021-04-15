@@ -1,11 +1,9 @@
 package com.doubleg.pokedex
 
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,46 +22,39 @@ class MainActivity : AppCompatActivity() {
 
         val service: PokemonService = retrofit.create(PokemonService::class.java)
 
-        val button = findViewById<Button>(R.id.button)
+        val buscar = findViewById<Button>(R.id.bttBuscar)
+        val nomePokemon = findViewById<TextView>(R.id.TextViewNomePokemon)
+        val idPokemon = findViewById<TextView>(R.id.TextViewIdPokemon)
+        val chaveBusca = findViewById<EditText>(R.id.EditTextChave)
+        val suaImagem = findViewById<ImageView>(R.id.ImageViewPokemon)
 
-        //enqueueExample(button, service)
-        executeExample(button, service)
-    }
+        var url: String
 
-    private fun enqueueExample(button: Button, service: PokemonService) {
-        button.setOnClickListener {
-            service.getPokemon("bulbasaur").enqueue(object : Callback<Pokemon> {
+        buscar.setOnClickListener {
+            service.getPokemon(chaveBusca.text.toString()).enqueue(object : Callback<Pokemon> {
                 override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@MainActivity, response.body()?.name, Toast.LENGTH_SHORT)
-                            .show()
-                        val name = response.body()?.name
-                        Log.d("TESTE", name ?: "")
-                        val id = response.body()?.id
-                        Log.d("TESTE", id.toString())
+                        nomePokemon.text = (response.body()?.name)
+                        idPokemon.text = (response.body()?.id).toString()
+                        Toast.makeText(
+                            this@MainActivity,
+                            (response.body()?.abilities?.get(1)?.ability?.name),
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        url = (response.body()?.sprites?.front_default.toString())
+
+                        Glide.with(this@MainActivity).load(url).into(suaImagem)
+
+                    } else {
+                        nomePokemon.text = getString(R.string.not_found_pokemon)
+                        idPokemon.text = getString(R.string.not_found_pokemon)
                     }
                 }
 
                 override fun onFailure(call: Call<Pokemon>, t: Throwable) {
-                    Log.d("TESTE", t.message ?: "")
-                }
-            })
-        }
-    }
-
-    private fun executeExample(button: Button, service: PokemonService) {
-        button.setOnClickListener {
-            //MainThread
-            AsyncTask.execute(object : Runnable {
-                override fun run() {
-                    //BackgroundThread
-                    val response = service.getPokemon("pikachu").execute()
-                    runOnUiThread(object : Runnable {
-                        override fun run() {
-                            //MainThread
-                            Toast.makeText(this@MainActivity, response.body()?.name, Toast.LENGTH_SHORT).show()
-                        }
-                    })
+                    nomePokemon.text = getString(R.string.search_error) + t.localizedMessage
+                    idPokemon.text = getString(R.string.search_error) + t.localizedMessage
                 }
             })
         }
