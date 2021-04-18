@@ -1,9 +1,6 @@
 package com.doubleg.pokedex
 
 import android.util.Log
-import android.widget.Toast
-import com.bumptech.glide.Glide
-import org.jetbrains.anko.doAsync
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,27 +18,20 @@ class BuscaPokemon {
     val service: PokemonService = retrofit.create(PokemonService::class.java)
 
 
-
-    fun buscaNome(chaveBusca: kotlin.String, responseResult: ResponseResult ) {
-
-
-        var name: String1
-        name = "ab"
+    fun buscaNome(chaveBusca: kotlin.String, responseResult: ResponseResult) {
 
         service.run {
-            name = "ab"
 
             getPokemon(chaveBusca).enqueue(object : Callback<Pokemon> {
                 override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
-                    if (response.isSuccessful) {
-                        //retornar uma string pro nomePokemon.text
-
-
-                        name = (response.body()?.name.toString())
-                        responseResult.onResponse(name)
-
-
-                        Log.d("ruan", name)
+                    if (response.isSuccessful && response.body() != null) {
+                        response.body().let {
+                            if (it != null) {
+                                responseResult.onSucess(it)
+                            } else {
+                                responseResult.notFound("Pokemon Não Encontrado")
+                            }
+                        }
                         //
                         //                    idPokemon.text = (response.body()?.id).toString()
                         //                    ide = (response.body()?.id).toString().toInt()
@@ -63,7 +53,8 @@ class BuscaPokemon {
                         //                        .into(imageViewBack)
 
                     } else {
-                        name = "Pokemon Not Found"
+
+                        responseResult.notFound("Pokemon Not Found")
                         //                    nomePokemon.text = getString(R.string.not_found_pokemon)
                         //                    idPokemon.text = getString(R.string.not_found_pokemon)
                         //                    ide = 999
@@ -72,7 +63,7 @@ class BuscaPokemon {
                 }
 
                 override fun onFailure(call: Call<Pokemon>, t: Throwable) {
-                    name = "Busca deu Ruim"
+                    responseResult.onError("Deu Ruim " + t.localizedMessage)
                     //                nomePokemon.text = getString(R.string.search_error) + t.localizedMessage
                     //                idPokemon.text = getString(R.string.search_error) + t.localizedMessage
                     //                ide = 9999

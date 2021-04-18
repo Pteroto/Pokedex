@@ -1,6 +1,8 @@
 package com.doubleg.pokedex
 
 interface ResponseResult {
-    fun onResponse(nome: String)
+    fun onSucess(pokemon: Pokemon)
+    fun onError(erro: String)
+    fun notFound(msg: String)
 
 }

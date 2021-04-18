@@ -11,7 +11,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class MainActivity : AppCompatActivity(),ResponseResult {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var nomePokemon: TextView
 
@@ -72,7 +72,19 @@ class MainActivity : AppCompatActivity(),ResponseResult {
         buscar.setOnClickListener {
 
 
-            buscaPokemon.buscaNome(chaveBusca.text.toString(),this@MainActivity )
+            buscaPokemon.buscaNome(chaveBusca.text.toString(),object : ResponseResult{
+                override fun onSucess(pokemon: Pokemon) {
+                    nomePokemon.text = pokemon.name
+                }
+
+                override fun onError(erro: String) {
+                    nomePokemon.text = erro
+                }
+
+                override fun notFound(msg: String) {
+                    nomePokemon.text = msg
+                }
+            })
 
 
 //            service.getPokemon(chaveBusca.text.toString()).enqueue(object : Callback<Pokemon> {
@@ -199,11 +211,11 @@ class MainActivity : AppCompatActivity(),ResponseResult {
 //
    }
 
-    override fun onResponse(nome: String) {
-
-        nomePokemon.text = nome
-
-        Log.d("onResponse", nome)
-
-    }
+//    override fun onResponse(nome: String) {
+//
+//        nomePokemon.text = nome
+//
+//        Log.d("onResponse", nome)
+//
+//    }
 }
