@@ -6,7 +6,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import kotlin.String as String1
+
 
 class BuscaPokemon {
 
@@ -18,7 +18,7 @@ class BuscaPokemon {
     val service: PokemonService = retrofit.create(PokemonService::class.java)
 
 
-    fun buscaNome(chaveBusca: kotlin.String, responseResult: ResponseResult) {
+    fun buscaNome(chaveBusca: String, responseResult: ResponseResult) {
 
         service.run {
 
