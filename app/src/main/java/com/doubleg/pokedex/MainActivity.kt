@@ -72,19 +72,41 @@ class MainActivity : AppCompatActivity() {
         buscar.setOnClickListener {
 
 
-            buscaPokemon.buscaNome(chaveBusca.text.toString(),object : ResponseResult{
+            buscaPokemon.buscaNome(chaveBusca.text.toString(), object : ResponseResult {
                 override fun onSucess(pokemon: Pokemon) {
+
+                    //exibindo informações do pokemon
                     nomePokemon.text = pokemon.name
+                    idPokemon.text = pokemon.id.toString()
+
+                    //exibindo imagens do pokemon
+                    Glide.with(this@MainActivity)
+                        .load(pokemon.sprites.front_default)
+                        .into(imageViewFront)
+
+                    Glide.with(this@MainActivity)
+                        .load(pokemon.sprites.back_default)
+                        .into(imageViewBack)
+
                 }
 
                 override fun onError(erro: String) {
                     nomePokemon.text = erro
+
                 }
 
                 override fun notFound(msg: String) {
                     nomePokemon.text = msg
                 }
             })
+        }
+
+        imageNext.setOnClickListener {
+
+            ide = ide+1
+
+
+        }
 
 
 //            service.getPokemon(chaveBusca.text.toString()).enqueue(object : Callback<Pokemon> {
@@ -124,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 //                    ide = 9999
 //                }
 //            })
-        }
+
 
 //
 //        imageNext.setOnClickListener {
@@ -209,7 +231,7 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //
-   }
+    }
 
 //    override fun onResponse(nome: String) {
 //
