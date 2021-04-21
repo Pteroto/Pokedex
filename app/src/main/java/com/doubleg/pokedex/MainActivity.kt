@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,11 +41,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        textView.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
+        textView.setOnClickListener { }
 
-            }
-        })
+        soma.teste2(2, 2) { result ->
+            mostrarNoLog(result, "teste")
+        }
 
         val editText = findViewById<EditText>(R.id.editText)
         editText.addTextChangedListener(object : TextWatcher {

@@ -26,4 +26,13 @@ abstract class Calculo {
         val result = tipoCalculo(valor1, valor2)
         resultLog.log(result)
     }
+
+    fun result(result: Int): Unit {
+
+    }
+
+    fun teste2(valor1: Int, valor2: Int, result: (result: Int) -> Unit) {
+        val resultado = valor1 + valor2
+        result(resultado)
+    }
 }
