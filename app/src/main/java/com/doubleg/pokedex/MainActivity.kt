@@ -1,7 +1,11 @@
 package com.doubleg.pokedex
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.doubleg.pokedex.callback.CalculoCallback
@@ -35,6 +39,27 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure() {
                 mostrarErroNoLog()
+            }
+        })
+
+        textView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+
+            }
+        })
+
+        val editText = findViewById<EditText>(R.id.editText)
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                TODO("Not yet implemented")
             }
         })
 
