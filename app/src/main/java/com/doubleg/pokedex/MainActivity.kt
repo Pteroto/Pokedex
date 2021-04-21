@@ -2,39 +2,55 @@ package com.doubleg.pokedex
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-
+import com.doubleg.pokedex.callback.CalculoCallback
+import com.doubleg.pokedex.callback.Result
+import com.doubleg.pokedex.callback.ResultLog
+import com.doubleg.pokedex.callback.Soma
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var textView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        textView = findViewById(R.id.textView)
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build()
-
-        val service: PokemonService = retrofit.create(PokemonService::class.java)
-
-        service.getPokemon("bulbasaur").enqueue(object : Callback<Pokemon> {
-            override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
-                if (response.isSuccessful) {
-                    val name = response.body()?.name
-                    Log.d("TESTE", name ?: "")
-                    val id = response.body()?.id
-                    Log.d("TESTE", id.toString())
-                }
+        val soma = Soma()
+        soma.seForPar(2, 2, object : CalculoCallback {
+            override fun onSuccess(result: Int) {
+                mostrarNoLog(result, "Par")
             }
 
-            override fun onFailure(call: Call<Pokemon>, t: Throwable) {
-                Log.d("TESTE", t.message ?: "")
+            override fun onFailure() {
+                mostrarErroNoLog()
             }
         })
+
+        soma.seForImpar(2, 2, object : CalculoCallback {
+            override fun onSuccess(result: Int) {
+                mostrarNoLog(result, "Impar")
+            }
+
+            override fun onFailure() {
+                mostrarErroNoLog()
+            }
+        })
+
+        val resultLog = ResultLog()
+
+        soma.seForPar(2, 2, Result())
+        soma.seForPar(2, 3, Result())
+        soma.teste(2, 2, resultLog)
+    }
+
+    fun mostrarNoLog(resultado: Int, tipo: String) {
+        textView.text = resultado.toString()
+        Log.d("teste", "o resultado foi: $resultado e é $tipo")
+    }
+
+    fun mostrarErroNoLog() {
+        Log.d("teste", "O numero nao atendeu aos requisitos")
     }
 }
