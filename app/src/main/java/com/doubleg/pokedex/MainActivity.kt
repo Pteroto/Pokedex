@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), ResponseResult {
     private lateinit var imageViewFront: ImageView
     private lateinit var imageViewBack: ImageView
 
+    var ide: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +39,6 @@ class MainActivity : AppCompatActivity(), ResponseResult {
         val imageNext = findViewById<ImageView>(R.id.ImageViewNext)
         val imageBack = findViewById<ImageView>(R.id.ImageViewBack)
 
-//        var ide: Int
-
 
 
 
@@ -53,30 +52,30 @@ class MainActivity : AppCompatActivity(), ResponseResult {
             .into(imageBack)
 
 
-//        ide = idPokemon.text.toString().toInt()
-
-
         buscar.setOnClickListener {
-            buscaPokemon.buscaNome(chaveBusca.text.toString(), this@MainActivity)
+            buscaPokemon.buscaNome(chaveBusca.text.toString().toLowerCase(), this@MainActivity)
+            ide=1
+
         }
-//
-//        imageNext.setOnClickListener {
-//            ide = ide+1
-//            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
-//        }
-//
-//        imageBack.setOnClickListener {
-//            ide = ide-1
-//            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
-//        }
+
+        imageNext.setOnClickListener {
+            ide = ide+1
+
+            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
+        }
+
+        imageBack.setOnClickListener {
+            ide = ide-1
+            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
+        }
 
     }
 
     override fun onSucess(pokemon: Pokemon){
-        nomePokemon.text = pokemon.name
+
+        nomePokemon.text = pokemon.name.toUpperCase()
         idPokemon.text = pokemon.id.toString()
-
-
+        ide =  idPokemon.text.toString().toInt()
 
         Glide.with(this@MainActivity)
             .load(pokemon.sprites.front_default)
@@ -85,7 +84,6 @@ class MainActivity : AppCompatActivity(), ResponseResult {
         Glide.with(this@MainActivity)
             .load(pokemon.sprites.back_default)
             .into(imageViewBack)
-
 
     }
 

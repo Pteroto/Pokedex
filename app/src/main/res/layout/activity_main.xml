@@ -21,21 +21,27 @@
 
             <EditText
                 android:id="@+id/EditTextChave"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:textSize="30dp" />
 
-            <Button
-                android:id="@+id/bttBuscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Buscar" />
+        </LinearLayout>
 
 
+        <Button
+            android:id="@+id/bttBuscar"
+            android:layout_width="95dp"
+            android:layout_height="58dp"
+
+            android:text="Buscar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/ImageViewBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="5dp"
                 />
 
@@ -45,10 +51,6 @@
                 android:layout_height="55dp"
                 android:layout_marginStart="5dp"
                 />
-
-
-
-
 
         </LinearLayout>
 
@@ -64,13 +66,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome: "
-                android:textSize="30dp" />
+                android:textAlignment="center"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/TextViewNomePokemon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
