@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="pkn_name"></string>
+    <string name="pkn_search">Buscar</string>
+    <string name="pkn_name2"></string>
+    <string name="pkn_id"></string>
+    <string name="pkn_type"></string>
+
 </resources>
