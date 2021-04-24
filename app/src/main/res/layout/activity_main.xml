@@ -47,9 +47,6 @@
                 />
 
 
-
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -115,6 +112,41 @@
                 android:layout_height="160dp" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp">
+
+            <Button
+                android:id="@+id/bttMontarLista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Montar Lista de Pokemons"
+                />
+
+            <ImageView
+                android:id="@+id/ImageViewListaPokemon"
+                android:layout_marginVertical="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                />
+
+            <ImageView
+                android:id="@+id/ImageViewListaPokemon2"
+                android:layout_marginVertical="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                />
+
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

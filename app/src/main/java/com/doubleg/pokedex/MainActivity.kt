@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity(), ResponseResult {
     private lateinit var idPokemon: TextView
     private lateinit var imageViewFront: ImageView
     private lateinit var imageViewBack: ImageView
+    private lateinit var npokemon: Pokemon
+    private lateinit var retornopokemon: Pokemon
+    //criando lista de pokemon
+    var listaPokemon: MutableList<Pokemon>?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +28,14 @@ class MainActivity : AppCompatActivity(), ResponseResult {
         setContentView(R.layout.activity_main)
 
         val buscaPokemon = BuscaPokemon()
+
+        //inicializando a mutablelist
+        listaPokemon = mutableListOf()
+
+
+
+
+        var imagemListaPokemon = findViewById<ImageView>(R.id.ImageViewListaPokemon)
 
         nomePokemon = findViewById(R.id.TextViewNomePokemon)
 
@@ -35,12 +47,22 @@ class MainActivity : AppCompatActivity(), ResponseResult {
         imageViewFront = findViewById(R.id.ImageViewPokemonFront)
         imageViewBack = findViewById(R.id.ImageViewPokemonBack)
 
+        val criarListaPokemon = findViewById<Button>(R.id.bttMontarLista)
+
+
         val imageNext = findViewById<ImageView>(R.id.ImageViewNext)
         val imageBack = findViewById<ImageView>(R.id.ImageViewBack)
 
-//        var ide: Int
+
+        val lista1 = findViewById<ImageView>(R.id.ImageViewListaPokemon2)
+        val lista2 = findViewById<ImageView>(R.id.ImageViewListaPokemon)
 
 
+        var ide: Int
+
+        var cont: Int
+
+        var ide2: Int // andar com id do pokemon para contar
 
 
 
@@ -53,29 +75,58 @@ class MainActivity : AppCompatActivity(), ResponseResult {
             .into(imageBack)
 
 
-//        ide = idPokemon.text.toString().toInt()
-
-
         buscar.setOnClickListener {
             buscaPokemon.buscaNome(chaveBusca.text.toString(), this@MainActivity)
+//            listaPokemon.
         }
-//
-//        imageNext.setOnClickListener {
-//            ide = ide+1
-//            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
-//        }
-//
-//        imageBack.setOnClickListener {
-//            ide = ide-1
-//            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
-//        }
+
+        imageNext.setOnClickListener {
+
+
+            ide = npokemon.id + 1
+            if (ide>897) {
+                ide = 1
+            }
+            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
+        }
+
+        imageBack.setOnClickListener {
+            ide = npokemon.id - 1
+
+            if(ide<1){
+                ide = 897
+            }
+            buscaPokemon.buscaNome(ide.toString(), this@MainActivity)
+
+
+        }
+
+        criarListaPokemon.setOnClickListener {
+
+//            buscaPokemon.montaLista(this)
+
+            Glide.with(this)
+                .load(listaPokemon?.randomOrNull()?.sprites?.front_default)
+                .into(lista1)
+
+            Glide.with(this)
+                .load(listaPokemon?.randomOrNull()?.sprites?.front_default)
+                .into(lista2)
+
+        }
+
+
+
 
     }
 
-    override fun onSucess(pokemon: Pokemon){
+    override fun onSucess(pokemon: Pokemon) {
+        retornopokemon = pokemon
+        npokemon = pokemon
         nomePokemon.text = pokemon.name
         idPokemon.text = pokemon.id.toString()
 
+        listaPokemon?.add(pokemon)
 
 
         Glide.with(this@MainActivity)
@@ -85,8 +136,6 @@ class MainActivity : AppCompatActivity(), ResponseResult {
         Glide.with(this@MainActivity)
             .load(pokemon.sprites.back_default)
             .into(imageViewBack)
-
-
     }
 
     override fun onError(erro: String) {
@@ -97,8 +146,5 @@ class MainActivity : AppCompatActivity(), ResponseResult {
     override fun notFound(msg: String) {
         nomePokemon.text = msg
         idPokemon.text = msg
-
     }
-
-
 }
