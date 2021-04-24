@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="not_found_pokemon">Pokemon Não Encontrado</string>
+    <string name="search_error">Erro na Busca</string>
 </resources>
