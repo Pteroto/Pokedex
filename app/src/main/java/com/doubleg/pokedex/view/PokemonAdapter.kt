@@ -1,15 +1,19 @@
-package com.doubleg.pokedex
+package com.doubleg.pokedex.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.doubleg.pokedex.R
+import com.doubleg.pokedex.repository.model.Pokemon
 
 //https://developer.android.com/guide/topics/ui/layout/recyclerview
 class PokemonAdapter(
-    private val pokemonList: List<PokemonUrl>,
-    private val onItemClick: (PokemonUrl) -> Unit
+    private val responseList: List<Pokemon>,
+    private val onItemClick: (Pokemon) -> Unit
 ) : RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonHolder {
@@ -19,17 +23,20 @@ class PokemonAdapter(
     }
 
     override fun getItemCount(): Int {
-        return pokemonList.size
+        return responseList.size
     }
 
     override fun onBindViewHolder(holder: PokemonHolder, position: Int) {
-        holder.bind(pokemonList[position])
+        holder.bind(responseList[position])
     }
 
     inner class PokemonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(pokemon: PokemonUrl) {
-            itemView.findViewById<TextView>(R.id.name).text = pokemon.name
-            itemView.findViewById<TextView>(R.id.url).text = pokemon.url
+        fun bind(pokemon: Pokemon) {
+            val imageView = itemView.findViewById<ImageView>(R.id.pokemonImage)
+            Glide.with(itemView).load(pokemon.sprites.front_default).into(imageView)
+
+            itemView.findViewById<TextView>(R.id.pokemonName).text = pokemon.name
+
             itemView.setOnClickListener {
                 onItemClick(pokemon)
             }
