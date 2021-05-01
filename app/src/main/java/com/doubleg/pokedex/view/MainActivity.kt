@@ -27,21 +27,26 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, NextActivity::class.java)
 
+
         var offSet = findViewById<EditText>(R.id.EditTextOffset)
-            .setHint("OffSet")
+
 
         var quantidade = findViewById<EditText>(R.id.EditTextQuantidade)
-            .setHint("Quantidade")
+
 
         val buscar = findViewById<Button>(R.id.BttBuscar)
+
+
+        intent.putExtra("offSet",offSet.text)
+        intent.putExtra("quantidade", quantidade.text)
 
 
 
         buscar.setOnClickListener {
 
 
-            intent.putExtra("offSet", offSet.toString())
-            intent.putExtra("quantidade", quantidade.toString())
+
+
             startActivity(intent)
 
         }

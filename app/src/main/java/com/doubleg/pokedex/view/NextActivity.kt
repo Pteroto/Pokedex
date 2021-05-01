@@ -15,10 +15,11 @@ class NextActivity : AppCompatActivity() {
 
 
         var offSet = intent.getStringExtra("offSet")
+        var quantidade = intent.getStringExtra("quantidade")
 
         var mostrarOffset = findViewById<TextView>(R.id.TextViewMostrarOffSet)
 
-        mostrarOffset.text = offSet
+        mostrarOffset.text = offSet + "-" + quantidade
 
 
 
