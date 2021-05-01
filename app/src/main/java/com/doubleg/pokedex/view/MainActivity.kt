@@ -1,7 +1,11 @@
 package com.doubleg.pokedex.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +19,34 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val intent = Intent(this, NextActivity::class.java)
+
+        var offSet = findViewById<EditText>(R.id.EditTextOffset)
+            .setHint("OffSet")
+
+        var quantidade = findViewById<EditText>(R.id.EditTextQuantidade)
+            .setHint("Quantidade")
+
+        val buscar = findViewById<Button>(R.id.BttBuscar)
+
+
+
+        buscar.setOnClickListener {
+
+
+            intent.putExtra("offSet", offSet.toString())
+            intent.putExtra("quantidade", quantidade.toString())
+            startActivity(intent)
+
+        }
+
+
 
         val repository = Repository()
 
@@ -34,6 +63,11 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("teste", "teste")
     }
+
+
+
+
+
 
     private fun setListOnScreen(list: List<Pokemon>) {
         findViewById<RecyclerView>(R.id.recyclerViewPokemon).apply {
