@@ -27,60 +27,52 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, NextActivity::class.java)
 
+        val offSet = findViewById<EditText>(R.id.EditTextOffset)
+        offSet.setHint("OffSet")
 
-        var offSet = findViewById<EditText>(R.id.EditTextOffset)
-
-
-        var quantidade = findViewById<EditText>(R.id.EditTextQuantidade)
+        val quantidade = findViewById<EditText>(R.id.EditTextQuantidade)
+        quantidade.setHint("Quantidade")
 
 
         val buscar = findViewById<Button>(R.id.BttBuscar)
 
-
-        intent.putExtra("offSet",offSet.text)
-        intent.putExtra("quantidade", quantidade.text)
-
+        val params = Bundle()
 
 
         buscar.setOnClickListener {
 
-
-
-
+            params.putString("offSet", offSet.text.toString())
+            params.putString("quantidade", quantidade.text.toString())
+            intent.putExtras(params)
             startActivity(intent)
 
         }
 
 
 
-        val repository = Repository()
-
-        //https://developer.android.com/kotlin/coroutines
-        //Criando Thread em background
-        GlobalScope.launch(Dispatchers.IO) {
-            val list = repository.getPokemonList()
-
-            //Voltando para a MainThread
-            withContext(Dispatchers.Main) {
-                setListOnScreen(list)
-            }
-        }
-
-        Log.d("teste", "teste")
+//        val repository = Repository()
+//
+//        //https://developer.android.com/kotlin/coroutines
+//        //Criando Thread em background
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val list = repository.getPokemonList()
+//
+//            //Voltando para a MainThread
+//            withContext(Dispatchers.Main) {
+//                setListOnScreen(list)
+//            }
+//        }
+//
+//        Log.d("teste", "teste")
     }
 
-
-
-
-
-
-    private fun setListOnScreen(list: List<Pokemon>) {
-        findViewById<RecyclerView>(R.id.recyclerViewPokemon).apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 3)
-                //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = PokemonAdapter(list) {
-                Log.d("teste", it.name)
-            }
-        }
-    }
+//    private fun setListOnScreen(list: List<Pokemon>) {
+//        findViewById<RecyclerView>(R.id.recyclerViewPokemon).apply {
+//            layoutManager = GridLayoutManager(this@MainActivity, 3)
+//                //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+//            adapter = PokemonAdapter(list) {
+//                Log.d("teste", it.name)
+//            }
+//        }
+//    }
 }

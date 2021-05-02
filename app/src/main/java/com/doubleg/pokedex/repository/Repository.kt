@@ -13,9 +13,9 @@ class Repository {
         service = apiBuilder.createPokemonApi(retrofit)
     }
 
-    fun getPokemonList(): List<Pokemon> {
+    fun getPokemonList(offSet: Int, quantidade: Int): List<Pokemon> {
         val pokemonList = mutableListOf<Pokemon>()
-        val responseUrlList = getPokemonUrlList()
+        val responseUrlList = getPokemonUrlList(offSet, quantidade)
 
         responseUrlList.forEach { responseUrl ->
             val id =
@@ -32,9 +32,9 @@ class Repository {
         return pokemonList
     }
 
-    private fun getPokemonUrlList(): List<ResponseUrl> {
+    private fun getPokemonUrlList(offSet: Int, quantidade: Int): List<ResponseUrl> {
         return try {
-            val response = service.getPokemonUrlList(50, 151).execute()
+            val response = service.getPokemonUrlList(quantidade, offSet).execute()
             if (response.isSuccessful) {
                 response.body()?.results ?: listOf()
             } else {
