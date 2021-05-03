@@ -27,6 +27,20 @@
 
             />
 
+        <CheckBox
+            android:id="@+id/CheckBoxHabilidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Habilidade"/>
+
+        <CheckBox
+            android:id="@+id/CheckBoxItens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Itens"/>
+
+
+
         <Button
             android:id="@+id/BttBuscar"
             android:layout_width="wrap_content"

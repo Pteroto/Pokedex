@@ -27,13 +27,19 @@ class NextActivity : AppCompatActivity() {
 
         val quantidade = params?.getString("quantidade")?.toInt()
 
-        val mostrarOffset = findViewById<TextView>(R.id.TextViewMostrarOffSet)
+        val itens = params?.getBoolean("itens")
+        val habilidade = params?.getBoolean("habilidade")
 
-        mostrarOffset.text = offSet.toString() + "-" + quantidade.toString()
 
-        var inicio: Int = 0
-        var fim: Int = 0
+//        val mostrarOffset = findViewById<TextView>(R.id.TextViewMostrarOffSet)
+//
+//        mostrarOffset.text = offSet.toString() + "-" + quantidade.toString()
 
+        var offset1: Int = 0
+        var quantidade1: Int = 0
+
+        var itens1: Boolean = false
+        var habilidade1: Boolean = false
 
 
 
@@ -48,15 +54,23 @@ class NextActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
 
             if (offSet != null) {
-                inicio = offSet
+                offset1 = offSet
             }
 
             if (quantidade != null) {
-                fim = quantidade
+                quantidade1 = quantidade
+            }
+
+            if(habilidade !=null){
+                habilidade1 = habilidade
+            }
+
+            if(itens != null){
+                itens1 = itens
             }
 
 
-            val list = repository.getPokemonList(inicio, fim)
+            val list = repository.getPokemonList(offset1, quantidade1)
 
             //Voltando para a MainThread
             withContext(Dispatchers.Main) {
@@ -64,7 +78,7 @@ class NextActivity : AppCompatActivity() {
             }
         }
 
-        Log.d("teste", "teste")
+//        Log.d("teste", "teste")
 
 
 

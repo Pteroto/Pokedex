@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,6 +34,13 @@ class MainActivity : AppCompatActivity() {
         val quantidade = findViewById<EditText>(R.id.EditTextQuantidade)
         quantidade.setHint("Quantidade")
 
+        val habilidade = findViewById<CheckBox>(R.id.CheckBoxHabilidade)
+        val itens = findViewById<CheckBox>(R.id.CheckBoxItens)
+
+
+
+
+
 
         val buscar = findViewById<Button>(R.id.BttBuscar)
 
@@ -40,6 +48,19 @@ class MainActivity : AppCompatActivity() {
 
 
         buscar.setOnClickListener {
+
+
+            if(habilidade.isChecked){
+                params.putBoolean("habilidade", true)
+            } else{
+                params.putBoolean("habilidade", false)
+            }
+
+            if(itens.isChecked){
+                params.putBoolean("itens", true)
+            } else{
+                params.putBoolean("itens", false)
+            }
 
             params.putString("offSet", offSet.text.toString())
             params.putString("quantidade", quantidade.text.toString())
