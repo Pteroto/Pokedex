@@ -74,7 +74,7 @@ class NextActivity : AppCompatActivity() {
 
             //Voltando para a MainThread
             withContext(Dispatchers.Main) {
-                setListOnScreen(list)
+                setListOnScreen(list, habilidade1, itens1)
             }
         }
 
@@ -84,11 +84,11 @@ class NextActivity : AppCompatActivity() {
 
     }
 
-    private fun setListOnScreen(list: List<Pokemon>) {
+    private fun setListOnScreen(list: List<Pokemon>, habilidade: Boolean, itens: Boolean) {
         findViewById<RecyclerView>(R.id.recyclerViewPokemon).apply {
             layoutManager = GridLayoutManager(this@NextActivity, 3)
             //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = PokemonAdapter(list) {
+            adapter = PokemonAdapter(list, habilidade, itens) {
 
             }
         }

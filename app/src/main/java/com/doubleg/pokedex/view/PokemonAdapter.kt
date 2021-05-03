@@ -13,6 +13,8 @@ import com.doubleg.pokedex.repository.model.Pokemon
 //https://developer.android.com/guide/topics/ui/layout/recyclerview
 class PokemonAdapter(
     private val responseList: List<Pokemon>,
+    private val habilidade: Boolean,
+    private val itens: Boolean,
     private val onItemClick: (Pokemon) -> Unit
 ) : RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
@@ -32,10 +34,46 @@ class PokemonAdapter(
 
     inner class PokemonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(pokemon: Pokemon) {
+
+            val textHabilidade = itemView.findViewById<TextView>(R.id.pokemonHabilidade)
+            val textItens = itemView.findViewById<TextView>(R.id.pokemonItens)
+
+            if(habilidade==true){
+
+                textHabilidade.text = "" //limpar cache (?)
+                for(i in 0 until pokemon.abilities.size){
+                    textHabilidade.text = textHabilidade.text.toString() + "\n"+
+                            pokemon.abilities[i].ability.name
+                }
+
+
+            }else{
+                textHabilidade.text = ""
+            }
+
+            if(itens == true){
+
+                textItens.text = "" //limpar cache (?)
+                for(i in 0 until pokemon.held_items.size){
+                    textItens.text = textItens.text.toString() + "\n" +
+                            pokemon.held_items[i].item.name
+                }
+
+                textItens.text = textItens.text.toString() + "\n"
+
+
+
+
+            }else{
+                textItens.text = ""+"\n"
+
+
+            }
+
             val imageView = itemView.findViewById<ImageView>(R.id.pokemonImage)
             Glide.with(itemView).load(pokemon.sprites.front_default).into(imageView)
 
-            itemView.findViewById<TextView>(R.id.pokemonName).text = pokemon.name
+            itemView.findViewById<TextView>(R.id.pokemonName).text = "Pokemon: "+pokemon.name
 
             itemView.setOnClickListener {
                 onItemClick(pokemon)
