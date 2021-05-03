@@ -40,7 +40,7 @@ class PokemonAdapter(
 
             if(habilidade==true){
 
-                textHabilidade.text = "" //limpar cache (?)
+                textHabilidade.text = "Habilidades: "+"\n" //limpar cache (?)
                 for(i in 0 until pokemon.abilities.size){
                     textHabilidade.text = textHabilidade.text.toString() + "\n"+
                             pokemon.abilities[i].ability.name
@@ -53,7 +53,7 @@ class PokemonAdapter(
 
             if(itens == true){
 
-                textItens.text = "" //limpar cache (?)
+                textItens.text = "Itens: "+"\n" //limpar cache (?)
                 for(i in 0 until pokemon.held_items.size){
                     textItens.text = textItens.text.toString() + "\n" +
                             pokemon.held_items[i].item.name
