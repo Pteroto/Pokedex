@@ -1,4 +1,4 @@
-package com.doubleg.pokedex
+package com.doubleg.pokedex.repository
 
 class Type(
     val url: String,

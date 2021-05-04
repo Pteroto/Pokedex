@@ -1,4 +1,4 @@
-package com.doubleg.pokedex
+package com.doubleg.pokedex.repository
 
 class Stat (
     val name: String,
