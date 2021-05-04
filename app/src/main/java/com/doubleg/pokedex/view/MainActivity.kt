@@ -1,5 +1,6 @@
 package com.doubleg.pokedex.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -14,46 +15,43 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.OffsetDateTime
 
 class MainActivity : AppCompatActivity() {
 
+    //onCreate serve para criar a tela
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //setContentView serve para inflar a tela, ou seja, criar a classe da dela
 
-        val repository = Repository()
 
-        var search = findViewById<Button>(R.id.search)
+        val search = findViewById<Button>(R.id.search)
 
-        search.setOnClickListener {
-            val limit = findViewById<EditText>(R.id.limit).text.toString().toInt()
-            var offset = findViewById<EditText>(R.id.offset).text.toString().toInt()
 
-            //https://developer.android.com/kotlin/coroutines
-            //Criando Thread em background
-            GlobalScope.launch(Dispatchers.IO) {
-                val list = repository.getPokemonList(limit, offset)
+        search.setOnClickListener() {
 
-                //Voltando para a MainThread
-                withContext(Dispatchers.Main) {
-                    setListOnScreen(list)
-                }
-            }
-
-            Log.d("teste", "teste")
+            nextScreen()
 
         }
-
-
     }
 
-    private fun setListOnScreen(list: List<Pokemon>) {
-        findViewById<RecyclerView>(R.id.recyclerViewPokemon).apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 3)
-            //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = PokemonAdapter(list) {
-                Log.d("teste", it.name)
-            }
-        }
+
+    private fun nextScreen() {
+        val limit = findViewById<EditText>(R.id.limit).text.toString().toInt()
+        val offset = findViewById<EditText>(R.id.offset).text.toString().toInt()
+
+        val sendIntent = Intent(this, ShowPokemon::class.java)
+        sendIntent.putExtra("limit", limit)
+        sendIntent.putExtra("offset", offset)
+        //putextra pode ser usado varias vezes pois ele tem um array de key
+
+
+        startActivity(sendIntent)
+    }
+
+    companion object {
+        const val limit = "limit"
+        const val offset = "offset"
     }
 }
