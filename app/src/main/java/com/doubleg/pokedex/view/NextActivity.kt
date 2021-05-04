@@ -30,57 +30,39 @@ class NextActivity : AppCompatActivity() {
         val itens = params?.getBoolean("itens")
         val habilidade = params?.getBoolean("habilidade")
 
-
 //        val mostrarOffset = findViewById<TextView>(R.id.TextViewMostrarOffSet)
 //
 //        mostrarOffset.text = offSet.toString() + "-" + quantidade.toString()
 
-        var offset1: Int = 0
-        var quantidade1: Int = 0
-
         var itens1: Boolean = false
         var habilidade1: Boolean = false
 
+        if(itens != null)
+        {
+            itens1 = itens
+        }
 
-
-
-
+        if(habilidade != null)
+        {
+            habilidade1 = habilidade
+        }
 
 
         val repository = Repository()
 
         //https://developer.android.com/kotlin/coroutines
         //Criando Thread em background
-        GlobalScope.launch(Dispatchers.IO) {
+        if (offSet != null && quantidade != null) {
+            GlobalScope.launch(Dispatchers.IO) {
 
-            if (offSet != null) {
-                offset1 = offSet
-            }
+                val list = repository.getPokemonList(offSet, quantidade)
 
-            if (quantidade != null) {
-                quantidade1 = quantidade
-            }
-
-            if(habilidade !=null){
-                habilidade1 = habilidade
-            }
-
-            if(itens != null){
-                itens1 = itens
-            }
-
-
-            val list = repository.getPokemonList(offset1, quantidade1)
-
-            //Voltando para a MainThread
-            withContext(Dispatchers.Main) {
-                setListOnScreen(list, habilidade1, itens1)
+                //Voltando para a MainThread
+                withContext(Dispatchers.Main) {
+                    setListOnScreen(list, habilidade1, itens1)
+                }
             }
         }
-
-//        Log.d("teste", "teste")
-
-
 
     }
 

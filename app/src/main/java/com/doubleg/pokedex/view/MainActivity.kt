@@ -19,9 +19,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,10 +35,6 @@ class MainActivity : AppCompatActivity() {
         val itens = findViewById<CheckBox>(R.id.CheckBoxItens)
 
 
-
-
-
-
         val buscar = findViewById<Button>(R.id.BttBuscar)
 
         val params = Bundle()
@@ -50,15 +43,15 @@ class MainActivity : AppCompatActivity() {
         buscar.setOnClickListener {
 
 
-            if(habilidade.isChecked){
+            if (habilidade.isChecked) {
                 params.putBoolean("habilidade", true)
-            } else{
+            } else {
                 params.putBoolean("habilidade", false)
             }
 
-            if(itens.isChecked){
+            if (itens.isChecked) {
                 params.putBoolean("itens", true)
-            } else{
+            } else {
                 params.putBoolean("itens", false)
             }
 
@@ -68,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-
 
 
 //        val repository = Repository()
