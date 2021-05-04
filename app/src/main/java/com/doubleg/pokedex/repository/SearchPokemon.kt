@@ -1,6 +1,8 @@
 package com.doubleg.pokedex.repository
 
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.doubleg.pokedex.R
@@ -14,6 +16,7 @@ class SearchPokemon {
     val apiBuilder = ApiBuilder()
     val retrofit = apiBuilder.createRetrofit()
     val service = apiBuilder.createPokemonApi(retrofit)
+
 
 
 

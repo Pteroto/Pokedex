@@ -1,5 +1,8 @@
 package com.doubleg.pokedex.repository
 
+import android.view.View
+import android.widget.EditText
+import com.doubleg.pokedex.R
 import com.doubleg.pokedex.repository.model.Pokemon
 import com.doubleg.pokedex.repository.model.ResponseUrl
 
@@ -13,9 +16,9 @@ class Repository {
         service = apiBuilder.createPokemonApi(retrofit)
     }
 
-    fun getPokemonList(): List<Pokemon> {
+    fun getPokemonList(limit: Int, offset: Int): List<Pokemon> {
         val pokemonList = mutableListOf<Pokemon>()
-        val responseUrlList = getPokemonUrlList()
+        val responseUrlList = getPokemonUrlList(limit, offset)
 
         responseUrlList.forEach { responseUrl ->
             val id =
@@ -32,9 +35,9 @@ class Repository {
         return pokemonList
     }
 
-    private fun getPokemonUrlList(): List<ResponseUrl> {
+    private fun getPokemonUrlList(limit: Int,offset: Int): List<ResponseUrl> {
         return try {
-            val response = service.getPokemonUrlList(50, 151).execute()
+            val response = service.getPokemonUrlList(limit,offset).execute()
             if (response.isSuccessful) {
                 response.body()?.results ?: listOf()
             } else {

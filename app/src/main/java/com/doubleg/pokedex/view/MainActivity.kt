@@ -2,6 +2,8 @@ package com.doubleg.pokedex.view
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,18 +23,28 @@ class MainActivity : AppCompatActivity() {
 
         val repository = Repository()
 
-        //https://developer.android.com/kotlin/coroutines
-        //Criando Thread em background
-        GlobalScope.launch(Dispatchers.IO) {
-            val list = repository.getPokemonList()
+        var search = findViewById<Button>(R.id.search)
 
-            //Voltando para a MainThread
-            withContext(Dispatchers.Main) {
-                setListOnScreen(list)
+        search.setOnClickListener {
+            val limit = findViewById<EditText>(R.id.limit).text.toString().toInt()
+            var offset = findViewById<EditText>(R.id.offset).text.toString().toInt()
+
+            //https://developer.android.com/kotlin/coroutines
+            //Criando Thread em background
+            GlobalScope.launch(Dispatchers.IO) {
+                val list = repository.getPokemonList(limit, offset)
+
+                //Voltando para a MainThread
+                withContext(Dispatchers.Main) {
+                    setListOnScreen(list)
+                }
             }
+
+            Log.d("teste", "teste")
+
         }
 
-        Log.d("teste", "teste")
+
     }
 
     private fun setListOnScreen(list: List<Pokemon>) {
