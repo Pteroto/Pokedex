@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private fun setListOnScreen(list: List<Pokemon>) {
         findViewById<RecyclerView>(R.id.recyclerViewPokemon).apply {
             layoutManager = GridLayoutManager(this@MainActivity, 3)
-                //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             adapter = PokemonAdapter(list) {
                 Log.d("teste", it.name)
             }
