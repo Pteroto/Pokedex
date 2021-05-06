@@ -2,10 +2,7 @@ package com.doubleg.pokedex.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
-import android.os.PersistableBundle
 import android.util.Log
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -57,14 +54,14 @@ class ShowPokemon : AppCompatActivity() {
     }
 
     private fun screenPokemonInfo(pokemon: Pokemon) {
-        val sendIntent = Intent(this, PokemonInfo::class.java)
+        val nextScreen = Intent(this, PokemonInfo::class.java)
 
         val bundle = Bundle()
-        bundle.putSerializable("pkmInfo", pokemon)
+        bundle.putParcelable("pkmInfo", pokemon)
 
-        sendIntent.putExtras(bundle)
+        nextScreen.putExtras(bundle)
 
-        startActivity(sendIntent)
+        startActivity(nextScreen)
 
     }
 

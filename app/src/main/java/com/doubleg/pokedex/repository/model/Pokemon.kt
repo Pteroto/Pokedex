@@ -3,11 +3,13 @@ package com.doubleg.pokedex.repository.model
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Pokemon(val name: String?, val id: Int, val sprites: Sprites) : Parcelable {
+
+data class Pokemon(val name: String?, val id: Int, val sprites: Sprites?) : Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readInt(),
-        sprites)
+        parcel.readParcelable<Sprites>(Sprites::class.java.classLoader)
     ) {
     }
 
