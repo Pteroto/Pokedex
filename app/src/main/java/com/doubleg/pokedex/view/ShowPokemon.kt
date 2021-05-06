@@ -1,7 +1,11 @@
 package com.doubleg.pokedex.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.os.PersistableBundle
 import android.util.Log
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,8 +40,6 @@ class ShowPokemon : AppCompatActivity() {
                     setListOnScreen(list)
                 }
             }
-
-
         }
         Log.d("teste", "teste")
 
@@ -49,8 +51,21 @@ class ShowPokemon : AppCompatActivity() {
             layoutManager = GridLayoutManager(this@ShowPokemon, 3)
             //LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             adapter = PokemonAdapter(list) {
-                Log.d("teste", it.name)
+                screenPokemonInfo(it)
             }
         }
     }
+
+    private fun screenPokemonInfo(pokemon: Pokemon) {
+        val sendIntent = Intent(this, PokemonInfo::class.java)
+
+        val bundle = Bundle()
+        bundle.putSerializable("pkmInfo", pokemon)
+
+        sendIntent.putExtras(bundle)
+
+        startActivity(sendIntent)
+
+    }
+
 }

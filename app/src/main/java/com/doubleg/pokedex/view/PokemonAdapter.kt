@@ -11,14 +11,12 @@ import com.doubleg.pokedex.R
 import com.doubleg.pokedex.repository.model.Pokemon
 
 //https://developer.android.com/guide/topics/ui/layout/recyclerview
-class PokemonAdapter(
-    private val responseList: List<Pokemon>,
-    private val onItemClick: (Pokemon) -> Unit
-) : RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
+class PokemonAdapter(private val responseList: List<Pokemon>,
+                     private val onItemClick: (Pokemon) -> Unit)
+    : RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.pokemon_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.pokemon_item, parent, false)
         return PokemonHolder(view)
     }
 
