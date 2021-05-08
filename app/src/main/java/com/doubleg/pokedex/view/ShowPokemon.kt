@@ -57,7 +57,8 @@ class ShowPokemon : AppCompatActivity() {
         val nextScreen = Intent(this, PokemonInfo::class.java)
 
         val bundle = Bundle()
-        bundle.putParcelable("pkmInfo", pokemon)
+        bundle.putParcelable("info", pokemon)
+
 
         nextScreen.putExtras(bundle)
 

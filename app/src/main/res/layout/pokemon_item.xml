@@ -12,7 +12,7 @@
         android:layout_marginBottom="4dp" />
 
     <ImageView
-        android:id="@+id/pokemonImage"
+        android:id="@+id/imageInfo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         tools:ignore="ContentDescription" />

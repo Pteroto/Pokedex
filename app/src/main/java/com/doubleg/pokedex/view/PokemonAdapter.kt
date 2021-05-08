@@ -30,7 +30,7 @@ class PokemonAdapter(private val responseList: List<Pokemon>,
 
     inner class PokemonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(pokemon: Pokemon) {
-            val imageView = itemView.findViewById<ImageView>(R.id.pokemonImage)
+            val imageView = itemView.findViewById<ImageView>(R.id.imageInfo)
             Glide.with(itemView).load(pokemon.sprites?.front_default).into(imageView)
 
             itemView.findViewById<TextView>(R.id.pokemonName).text = pokemon.name

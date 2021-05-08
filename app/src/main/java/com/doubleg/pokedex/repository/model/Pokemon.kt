@@ -10,12 +10,12 @@ data class Pokemon(val name: String?, val id: Int, val sprites: Sprites?) : Parc
         parcel.readString(),
         parcel.readInt(),
         parcel.readParcelable<Sprites>(Sprites::class.java.classLoader)
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeInt(id)
+        parcel.writeParcelable(sprites, flags)
     }
 
     override fun describeContents(): Int {
