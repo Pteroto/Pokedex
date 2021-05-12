@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setObservers() {
+    private fun setObservers() {
+        //https://refactoring.guru/pt-br/design-patterns/observer
         viewModel.pokemonList.observe(this) {
             setListOnScreen(it)
         }
