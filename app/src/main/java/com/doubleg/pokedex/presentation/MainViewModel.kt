@@ -10,6 +10,7 @@ import com.doubleg.pokedex.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+//https://developer.android.com/topic/libraries/architecture/viewmodel
 class MainViewModel : ViewModel() {
     private val useCase: PokemonUseCase
 
