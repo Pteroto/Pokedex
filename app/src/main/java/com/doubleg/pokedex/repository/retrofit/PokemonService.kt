@@ -1,4 +1,4 @@
-package com.doubleg.pokedex.repository
+package com.doubleg.pokedex.repository.retrofit
 
 import com.doubleg.pokedex.repository.model.Pokemon
 import com.doubleg.pokedex.repository.model.PokemonResponse

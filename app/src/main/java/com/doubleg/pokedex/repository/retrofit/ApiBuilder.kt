@@ -1,4 +1,4 @@
-package com.doubleg.pokedex.repository
+package com.doubleg.pokedex.repository.retrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
