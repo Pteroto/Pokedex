@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.doubleg.pokedex.R
-import com.doubleg.pokedex.repository.model.Pokemon
+import com.doubleg.pokedex.domain.model.PokemonView
 
 //https://developer.android.com/guide/topics/ui/layout/recyclerview
 class PokemonAdapter(
-    private val responseList: List<Pokemon>,
-    private val onItemClick: (Pokemon) -> Unit
+    private val responseList: List<PokemonView>,
+    private val onItemClick: (PokemonView) -> Unit
 ) : RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonHolder {
@@ -31,9 +31,9 @@ class PokemonAdapter(
     }
 
     inner class PokemonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(pokemon: Pokemon) {
+        fun bind(pokemon: PokemonView) {
             val imageView = itemView.findViewById<ImageView>(R.id.pokemonImage)
-            Glide.with(itemView).load(pokemon.sprites.front_default).into(imageView)
+            Glide.with(itemView).load(pokemon.image).into(imageView)
 
             itemView.findViewById<TextView>(R.id.pokemonName).text = pokemon.name
 

@@ -1,3 +1,9 @@
 package com.doubleg.pokedex.repository.model
 
-data class Pokemon(val name: String, val id: Int, val sprites: Sprites)
+import retrofit2.http.Field
+
+data class Pokemon(
+    val name: String,
+    val id: Int,
+    @Field("sprites") val sprites: Sprites
+)
