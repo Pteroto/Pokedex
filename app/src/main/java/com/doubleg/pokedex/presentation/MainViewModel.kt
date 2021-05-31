@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doubleg.pokedex.domain.PokemonUseCase
 import com.doubleg.pokedex.domain.model.PokemonView
-import com.doubleg.pokedex.repository.Repository
+import com.doubleg.pokedex.repository.RepositoryImpl
+import com.doubleg.pokedex.repository.retrofit.ApiBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,7 +16,10 @@ class MainViewModel : ViewModel() {
     private val useCase: PokemonUseCase
 
     init {
-        val repository = Repository()
+        val apiBuilder = ApiBuilder()
+        val retrofit = apiBuilder.createRetrofit()
+        val retrofitService = apiBuilder.createPokemonApi(retrofit)
+        val repository = RepositoryImpl(retrofitService)
         useCase = PokemonUseCase(repository)
     }
 

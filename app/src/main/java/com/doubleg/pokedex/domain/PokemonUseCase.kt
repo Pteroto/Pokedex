@@ -10,10 +10,14 @@ class PokemonUseCase(private val repository: Repository) {
         val pokemonList = repository.getPokemonList()
 
         pokemonList.forEach { pokemon ->
-            val pokemonView = PokemonView(pokemon.name, pokemon.sprites.front_default)
+            val pokemonView = PokemonView(pokemon.name, pokemon.images.front_default)
             finalPokemonList.add(pokemonView)
         }
 
         return finalPokemonList
+    }
+
+    fun savePokemonList(list: List<PokemonView>) {
+        //repository.savePokemonList(list)
     }
 }
