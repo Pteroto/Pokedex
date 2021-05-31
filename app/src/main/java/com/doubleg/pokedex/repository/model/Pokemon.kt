@@ -1,9 +1,9 @@
 package com.doubleg.pokedex.repository.model
 
-import retrofit2.http.Field
+import com.squareup.moshi.Json
 
 data class Pokemon(
     val name: String,
     val id: Int,
-    @Field("sprites") val sprites: Sprites
+    @field:Json(name = "sprites") val images: Sprites
 )
